@@ -1,0 +1,13 @@
+node_modules
+__pycache__
+*.pyc
+.git
+.gitignore
+.env
+.venv
+venv
+.pytest_cache
+data/test_elexon.db
+frontend/node_modules
+frontend/dist
+dist
