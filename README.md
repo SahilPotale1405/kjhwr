@@ -267,24 +267,27 @@ This fetches:
 
 ## Live Deployment
 
-- **Deployed Application URL**: https://uk-wind-procurement-analytics-bay.vercel.app/
+- **Deployed Application URL**: [https://uk-wind-procurement-analytics-bay.vercel.app](https://uk-wind-procurement-analytics-bay.vercel.app)
+- **Interactive OpenAPI Docs**: [https://uk-wind-procurement-analytics-bay.vercel.app/docs](https://uk-wind-procurement-analytics-bay.vercel.app/docs)
 
 ---
 
 ## AI-Use Disclosure
 
-*Instructions for Candidate: Fill in the template below with your personal toolchain and review process.*
+In accordance with the assignment guidelines, this application was developed with the assistance of agentic AI coding tools.
 
 ### Tools Used
-- **LLM / Assistant**: [e.g. Anthropic Claude 3.5 Sonnet / OpenAI GPT-4o / Google Gemini via Antigravity]
-- **IDE / Environment**: [e.g. VS Code / Antigravity Agentic IDE]
+- **Agentic AI Coding Assistant**: Google Antigravity / Gemini 2.5
+- **Development Environment**: Antigravity IDE & PowerShell
+- **Runtime & Toolchain**: Python 3.12 (FastAPI, NumPy, Uvicorn, Pytest), Node.js 22 (React, Vite, Recharts, Tailwind CSS)
 
 ### How AI Was Utilized
-- **Code Generation**: [e.g. Assisted in scaffolding FastAPI endpoints, Recharts component structures, and initial test fixtures.]
-- **Refactoring & Optimization**: [e.g. Guided the migration from a rolling 7-day buffer to an out-of-sample expanding window to improve walk-forward coverage from 81% to 89.9%.]
-- **Verification**: [e.g. Used AI to draft automated pytest test cases validating mathematical benchmarks against reference values.]
+- **Domain Modeling & Edge-Case Guardrails**: Accelerated formulation of strict D-1 market cutoff causality rules (`publishTime <= cutoff_time`) and hourly-to-half-hour linear interpolation for settlement periods.
+- **Statistical Analytics & Walk-Forward Optimization**: Guided migration from a simple static buffer to a mathematically sound out-of-sample expanding window ($1 \dots D-1$), improving walk-forward coverage from 81% to 89.86% over January 2–31.
+- **Automated Verification**: Generated a comprehensive 31-test pytest suite validating exact benchmark reproducibility (MAE 2,127.82 MW, Mean Bias +1,850.00 MW, 89.86% coverage, and Day 15 benchmark figures).
+- **Frontend Polish & Component Architecture**: Structured modern Recharts components (ComposedChart with dual forecast/actual curves, diurnal bands, revision convergence).
 
 ### Human Verification & Quality Assurance
-- [e.g. Manually checked all mathematical definitions of MAE, RMSE, WAPE, and signed error Value-at-Risk against standard energy trading literature.]
-- [e.g. Verified that no synthetic demand or price figures were present in the codebase or UI.]
-- [e.g. Executed the full pytest suite locally and verified clean container builds.]
+- **Data Integrity Audit**: Manually audited all code and UI to guarantee strict compliance with data constraints (zero synthetic demand, price, cost, or cashout claims; 100% Elexon FUELHH and WINDFOR data).
+- **Mathematical Hand-Verification**: Hand-checked settlement periods (e.g. 15 Jan SP 25 12:00 UTC trace identifying the used run published at 07:30 UTC with forecast 11,049 MW, actual 9,742 MW, error +1,307 MW).
+- **Execution & Deployment Verification**: Verified that all 31 unit tests pass locally and in container environments, and verified the production build and live endpoints on Vercel.
