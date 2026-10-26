@@ -267,7 +267,7 @@ This fetches:
 
 ## Live Deployment
 
-- **Deployed Application URL**: `[INSERT_DEPLOYED_URL_HERE]`
+- **Deployed Application URL**: https://uk-wind-procurement-analytics-bay.vercel.app/
 
 ---
 
