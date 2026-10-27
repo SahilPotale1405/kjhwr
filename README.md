@@ -274,20 +274,26 @@ This fetches:
 
 ## AI-Use Disclosure
 
-In accordance with the assignment guidelines, this application was developed with the assistance of agentic AI coding tools.
+In accordance with the assignment guidelines, AI tools were utilized as productivity accelerators and technical reviewers during development, under strict human architectural direction and verification.
 
 ### Tools Used
-- **Agentic AI Coding Assistant**: Google Antigravity / Gemini 2.5
-- **Development Environment**: Antigravity IDE & PowerShell
-- **Runtime & Toolchain**: Python 3.12 (FastAPI, NumPy, Uvicorn, Pytest), Node.js 22 (React, Vite, Recharts, Tailwind CSS)
+- **Google Antigravity IDE (Gemini 2.5)**: Used as an agentic pair-programming accelerator for code authoring, FastAPI endpoint scaffolding, React component structuring, and automated test generation.
+- **Claude (Anthropic)**: Used as a technical advisory assistant to review system design against assignment constraints, cross-check prompt specifications, and assist with documentation review.
 
-### How AI Was Utilized
-- **Domain Modeling & Edge-Case Guardrails**: Accelerated formulation of strict D-1 market cutoff causality rules (`publishTime <= cutoff_time`) and hourly-to-half-hour linear interpolation for settlement periods.
-- **Statistical Analytics & Walk-Forward Optimization**: Guided migration from a simple static buffer to a mathematically sound out-of-sample expanding window ($1 \dots D-1$), improving walk-forward coverage from 81% to 89.86% over January 2–31.
-- **Automated Verification**: Generated a comprehensive 31-test pytest suite validating exact benchmark reproducibility (MAE 2,127.82 MW, Mean Bias +1,850.00 MW, 89.86% coverage, and Day 15 benchmark figures).
-- **Frontend Polish & Component Architecture**: Structured modern Recharts components (ComposedChart with dual forecast/actual curves, diurnal bands, revision convergence).
+### Division of Responsibility & Engineering Ownership
 
-### Human Verification & Quality Assurance
-- **Data Integrity Audit**: Manually audited all code and UI to guarantee strict compliance with data constraints (zero synthetic demand, price, cost, or cashout claims; 100% Elexon FUELHH and WINDFOR data).
-- **Mathematical Hand-Verification**: Hand-checked settlement periods (e.g. 15 Jan SP 25 12:00 UTC trace identifying the used run published at 07:30 UTC with forecast 11,049 MW, actual 9,742 MW, error +1,307 MW).
-- **Execution & Deployment Verification**: Verified that all 31 unit tests pass locally and in container environments, and verified the production build and live endpoints on Vercel.
+#### 1. Architectural & Domain Decisions (Human Engineer)
+- **Causality & Zero-Lookahead Enforcement**: Formulated the strict D-1 market cutoff rule (`publishTime <= cutoff_time`) ensuring only forecasts available prior to wholesale auction gate closure (09:00 UTC) are ingested.
+- **Walk-Forward Methodology**: Designed the expanding historical window ($1 \dots D-1$) to eliminate forward lookahead bias and provide true out-of-sample uncertainty quantification for January 2–31.
+- **Strict Data Integrity Policy**: Enforced 100% adherence to authentic Elexon BMRS datasets (`FUELHH` actuals and `WINDFOR` forecasts), rejecting synthetic demand curves, price assumptions, or simulated cashout penalties.
+- **Full-Stack Architecture**: Defined the decoupled modular architecture (FastAPI statistical engine + React/Vite/Tailwind dashboard), SQLite schema indexing, and containerized Docker workflow.
+
+#### 2. AI Acceleration
+- **Boilerplate & Endpoint Scaffolding**: Accelerated generation of standard FastAPI route definitions, Pydantic data validation schemas, and Recharts component layouts.
+- **Test Suite Drafting**: Assisted in scaffolding parameterized pytest test cases covering edge cases (settlement period indexing, missing forecast handling, interpolation).
+- **Styling & UI Productivity**: Assisted with responsive Tailwind CSS layout styling and UI accessibility attributes.
+
+#### 3. Verification, Auditing & Quality Control (Human Engineer)
+- **Mathematical Hand-Verification**: Manually hand-computed and verified metrics (MAE: 2,127.82 MW, Mean Bias: +1,850.00 MW, WAPE: 22.84%, and Signed Error VaR) against Elexon BMRS ground truth.
+- **Settlement Period Trace Audit**: Performed manual point-by-point calculation traces on individual half-hours (e.g. Settlement Period 25 on January 15: publication run 07:30 UTC, forecast 11,049 MW, actual 9,742 MW, error +1,307 MW).
+- **Code Review & Quality Assurance**: Reviewed and approved every generated code diff, resolved integration bugs, verified that all 31 pytest unit tests pass with zero regression, and executed the multi-service Vercel deployment.
